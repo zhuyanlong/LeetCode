@@ -20,22 +20,34 @@
 #现在来解释这个问题，最大值不用说，下一个最大值是可能从前一个最大值中产生的，我之前的写法就遵守这点
 #需要解释的是另一个问题，就是最小值，因为有可能是负数，假如我当前遍历的是个负数，那么我之前的最小值和现在的负数相乘是有可能产生最大值的
 #这点是这道题的基本思想
+# class Solution:
+#     def maxProduct(self, nums):
+#         if len(nums)==0:
+#             return 0
+#         maxnum=nums[0]
+#         minnum=nums[0]
+#         result=nums[0]
+#         for i in range(1,len(nums)):
+#             a=nums[i]*maxnum
+#             b=nums[i]*minnum
+#             c=nums[i]
+#             maxnum=max([a,b,c])
+#             minnum=min([a,b,c])
+#             if maxnum>result:
+#                 result=maxnum
+#         return result
+
 class Solution:
     def maxProduct(self, nums):
         if len(nums)==0:
             return 0
-        maxnum=nums[0]
-        minnum=nums[0]
-        result=nums[0]
+        result=[[0,0] for i in range(len(nums))]
+        result[0]=[nums[0],nums[0]]
         for i in range(1,len(nums)):
-            a=nums[i]*maxnum
-            b=nums[i]*minnum
-            c=nums[i]
-            maxnum=max([a,b,c])
-            minnum=min([a,b,c])
-            if maxnum>result:
-                result=maxnum
-        return result
+            result[i][0]=max(nums[i],nums[i]*result[i-1][0],nums[i]*result[i-1][1])
+            result[i][1]=min(nums[i],nums[i]*result[i-1][0],nums[i]*result[i-1][1])
+        print(result)
+        # return max(result)
 
 def main():
     s=Solution()
