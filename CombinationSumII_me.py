@@ -5,35 +5,44 @@ class Solution:
         result=[]
         re=[]
         stack=[]
-        s=[]
+        
         # print(candidates)
-        for i in range(len(candidates)):
-            if candidates[i]<=target:
-                stack.append((0,i))
+        for item in list(set(candidates)):
+            if item<=target:
+                stack.append((0,item))
+        # print(stack)
         while stack:
             tmp=stack.pop()
-            # print("tmp",tmp)
-            #当结果集的层次与当前层次不一致
+            tlist=candidates.copy()
+        #     # print("tmp",tmp)
+        #     #当结果集的层次与当前层次不一致
             while len(re)!=tmp[0]:
-                re.pop()
-                s.pop()
+                t=re.pop()
+        #         s.pop()
+
             re.append(tmp[1])
-            s.append(candidates[tmp[1]])
-            # print("re",re)
-            #求当前解集的所有候选解
-            for i in range(len(candidates)):
-                if candidates[i] <= target-sum(s) and i >= re[-1] and i not in re:
-                    stack.append((tmp[0]+1,i))
-            if sum(s)==target and s not in result:
-                result.append(s.copy())
-            # print("stack",stack)
+
+            if sum(re)==target:
+                result.append(re.copy())
+
+        #     # print("re",re)
+        #     #求当前解集的所有候选解
+
+            for i in re:
+                tlist.remove(i)
+            tlist=list(set(tlist))
+            for item in tlist:
+                if item <= target-sum(re) and item >= re[-1]:
+                    stack.append((tmp[0]+1,item))
+
+        #     # print("stack",stack)
         # print(result)
         return result
 
 def main():
     s=Solution()
-    candidates = [2,5,2,1,2]
-    target = 5
+    candidates = [10,1,2,7,6,1,5]
+    target = 8
     s.combinationSum2(candidates,target)
 
 main()
