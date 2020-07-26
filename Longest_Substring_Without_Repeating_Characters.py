@@ -13,6 +13,22 @@ class Solution:
 				result=num
 		return result
 
+#寻找最长不重复字符串，采用滑动区间复杂度较高
+class Solution:
+    def lengthOfLongestSubstring(self, s):
+        mac=0
+        i=0
+        tmp=[]
+        while i!=len(s):
+            if s[i] in tmp:
+                while s[i] in tmp:
+                    del tmp[0]
+            tmp.append(s[i])
+            if len(tmp)>mac:
+                mac=len(tmp)
+            i+=1
+        return mac
+
 def main():
 	s=Solution()
 	s.lengthOfLongestSubstring("pwwkew")
