@@ -21,8 +21,7 @@ class Solution:
         tmp=[]
         while i!=len(s):
             if s[i] in tmp:
-                while s[i] in tmp:
-                    del tmp[0]
+                tmp=tmp[tmp.index(s[i])+1:]
             tmp.append(s[i])
             if len(tmp)>mac:
                 mac=len(tmp)
