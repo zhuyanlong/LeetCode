@@ -12,7 +12,10 @@ class Solution:
 			head.next=ListNode(add%10)
 			head=head.next
 
-		l=l1 if l1 else l2
+		if l1:
+			l=l1
+		else:
+			l=l2
 
 		while l:
 			add=l.val+carry
