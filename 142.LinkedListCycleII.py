@@ -7,24 +7,37 @@ class ListNode:
 class Solution:
     def detectCycle(self, head):
         if head==None:
-            return None
-        fast=head
-        slow=head
+            return
+        hnode=ListNode(0)
+        hnode.next=head
+        fast=hnode
+        slow=hnode
         while fast!=None:
-            fast=fast.next
             slow=slow.next
+            fast=fast.next
             if fast!=None:
                 fast=fast.next
-                if fast==slow:
-                    break
-        if fast==None:
-            return None
-        #这是最关键的点，当两个节点相遇以后，slow从头开始走，再次相遇的时候，就是环开头，我很难想到原因
-        slow=head
-        while slow!=fast:
-            slow=slow.next
+            if slow==fast:
+                break
+            # print(slow.val,fast.val)
+        t=hnode
+        while fast!=None:
+            t=t.next
             fast=fast.next
-        return fast
+            if t==fast:
+                return t
+        return
+
+def PrintNode(head):
+    tmp=head
+    res=[]
+    while tmp!=None:
+        if tmp not in res:
+            res.append(tmp)
+            tmp=tmp.next
+        else:
+            break
+    return res
 
 def main():
     l=ListNode(3)
